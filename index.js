@@ -7,16 +7,40 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-  newBook = new Book(title, author, pages, read);
+// function addBookToLibrary(title, author, pages, read) {
+//   newBook = new Book(title, author, pages, read);
+//   myLibrary.push(newBook);
+// }
 
+function addBookToLibrary(e) {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  newBook = new Book(
+    data.get("title"),
+    data.get("author"),
+    data.get("pages"),
+    data.get("read")
+  );
+  console.log(newBook);
   myLibrary.push(newBook);
+  console.log(myLibrary);
+  displayBooks(myLibrary);
 }
-addBookToLibrary("The Philosopher's Stone", "JK Rowling", 500, "read");
-addBookToLibrary("Game of Thrones", "George RR Martin", 500, "read");
 
 document.addEventListener("DOMContentLoaded", () => {
-  myLibrary.forEach((el) => {
+  modal = document.querySelector("[data-modal]");
+  document.querySelector("[data-open-modal]").addEventListener("click", () => {
+    modal.showModal();
+  });
+  document.querySelector("[data-close-modal]").addEventListener("click", () => {
+    modal.close();
+  });
+});
+
+function displayBooks(books) {
+  document.querySelector("[data-modal]").close();
+  document.getElementById("card_container").innerHTML = "";
+  books.forEach((el) => {
     card = document.createElement("div");
     console.log(el);
     para1 = document.createElement("p");
@@ -34,4 +58,4 @@ document.addEventListener("DOMContentLoaded", () => {
     card.className = "card";
     document.getElementById("card_container").appendChild(card);
   });
-});
+}

@@ -9,5 +9,30 @@
   </head>
   <body>
     <div class="card_container" id="card_container"></div>
+    <button data-open-modal>Add book</button>
+    <dialog data-modal>
+      <form onsubmit="addBookToLibrary(event)">
+        <input
+          type="text"
+          placeholder="Title of the book"
+          id="tile"
+          name="title"
+        />
+        <input type="text" placeholder="Author" id="author" name="author" />
+        <input
+          type="number"
+          placeholder="Number of Pages"
+          id="pages"
+          name="pages"
+        />
+        <select name="read" id="read">
+          <option value="Read">Read</option>
+          <option value="Not read">Not read</option>
+        </select>
+        <br />
+        <button type="submit">Add book</button>
+      </form>
+      <button data-close-modal>Cancel</button>
+    </dialog>
   </body>
 </html>
