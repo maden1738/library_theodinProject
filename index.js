@@ -42,19 +42,30 @@ function displayBooks(books) {
   document.getElementById("card_container").innerHTML = "";
   books.forEach((el) => {
     card = document.createElement("div");
-    console.log(el);
-    para1 = document.createElement("p");
-    para1.innerText = el.title;
-    card.appendChild(para1);
-    para2 = document.createElement("p");
-    para2.innerText = `Written By: ${el.author}`;
-    card.appendChild(para2);
-    para3 = document.createElement("p");
-    para3.innerText = `Pages: ${el.pages}`;
-    card.appendChild(para3);
-    para4 = document.createElement("p");
-    para4.innerText = `Status: ${el.read}`;
-    card.appendChild(para4);
+
+    card.innerHTML = `<p>${el.title}</p>
+                         <p>Written By: ${el.author}</p>
+                         <p>Pages: ${el.pages}</p>
+                         <p>Title: ${el.title}</p>
+                         <p>Read: ${el.read}</p>`;
+
+    // para1 = document.createElement("p");
+    // para1.innerText = el.title;
+    // card.appendChild(para1);
+    // para2 = document.createElement("p");
+    // para2.innerText = `Written By: ${el.author}`;
+    // card.appendChild(para2);
+    // para3 = document.createElement("p");
+    // para3.innerText = `Pages: ${el.pages}`;
+    // card.appendChild(para3);
+    // para4 = document.createElement("p");
+    // para4.innerText = `Status: ${el.read}`;
+    // card.appendChild(para4);
+
+    closeButton = document.createElement("button"); // adding a close button
+    closeButton.innerText = "Remove Book";
+    card.appendChild(closeButton);
+
     card.className = "card";
     document.getElementById("card_container").appendChild(card);
   });
