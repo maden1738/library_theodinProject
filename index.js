@@ -7,11 +7,6 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-// function addBookToLibrary(title, author, pages, read) {
-//   newBook = new Book(title, author, pages, read);
-//   myLibrary.push(newBook);
-// }
-
 function addBookToLibrary(e) {
   e.preventDefault();
   const data = new FormData(e.target);
@@ -27,6 +22,13 @@ function addBookToLibrary(e) {
   displayBooks(myLibrary);
 }
 
+function removeBook(bookIndex) {
+  const bookId = bookIndex.getAttribute("data-index"); // gets the index the close button belongs to
+  cardToBeDeleted = document.getElementById(bookId);
+  cardToBeDeleted.remove(); // removing card
+  myLibrary.splice(bookId, 1); //removing book from library
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   modal = document.querySelector("[data-modal]");
   document.querySelector("[data-open-modal]").addEventListener("click", () => {
@@ -40,10 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function displayBooks(books) {
   document.querySelector("[data-modal]").close();
   document.getElementById("card_container").innerHTML = "";
-  books.forEach((el) => {
+  books.forEach((el, index) => {
     card = document.createElement("div");
 
-    card.innerHTML = `<p>${el.title}</p>
+    card.innerHTML = `<h2>${el.title}</h2>
                          <p>Written By: ${el.author}</p>
                          <p>Pages: ${el.pages}</p>
                          <p>Title: ${el.title}</p>
@@ -62,11 +64,14 @@ function displayBooks(books) {
     // para4.innerText = `Status: ${el.read}`;
     // card.appendChild(para4);
 
-    closeButton = document.createElement("button"); // adding a close button
-    closeButton.innerText = "Remove Book";
-    card.appendChild(closeButton);
+    removeButton = document.createElement("button"); // adding a  button to remove a card
+    removeButton.innerText = "Remove Book";
+    removeButton.setAttribute("data-index", index); // so that we know which index in myLibrary[] the removeButton belongs to
+    removeButton.setAttribute("onclick", "removeBook(this)");
+    card.appendChild(removeButton);
 
     card.className = "card";
+    card.setAttribute("id", `${index}`);
     document.getElementById("card_container").appendChild(card);
   });
 }
