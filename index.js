@@ -16,7 +16,7 @@ function addBookToLibrary(e) {
     data.get("pages"),
     data.get("read")
   );
-  console.log(newBook);
+
   myLibrary.push(newBook);
   console.log(myLibrary);
   displayBooks(myLibrary);
@@ -27,6 +27,18 @@ function removeBook(bookIndex) {
   cardToBeDeleted = document.getElementById(bookId);
   cardToBeDeleted.remove(); // removing card
   myLibrary.splice(bookId, 1); //removing book from library
+}
+
+function toggleRead(e) {
+  const bookId = e.getAttribute("data-index");
+  let currentStatus = myLibrary[bookId].read;
+  if (e.checked == true) {
+    document.getElementById(`read${bookId}`).innerHTML = "Read";
+    console.log("read");
+  } else {
+    document.getElementById(`read${bookId}`).innerHTML = "Not read";
+    console.log("not read");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -45,12 +57,30 @@ function displayBooks(books) {
   books.forEach((el, index) => {
     card = document.createElement("div");
 
-    card.innerHTML = `<h2>${el.title}</h2>
-                         <p>Written By: ${el.author}</p>
-                         <p>Pages: ${el.pages}</p>
-                         <p>Title: ${el.title}</p>
-                         <p>Read: ${el.read}</p>`;
+    card.innerHTML = `<div class = "title">
+                            <h3>${el.title}</h3>
+                        </div>    
+                        <hr/>
 
+                        <div class "details">
+                            <p>Written By: <span class = "bold"> ${el.author}</span></p>
+                            <p>Pages: ${el.pages}</p>
+                            
+                            <p>
+                                <span id = read${index}> ${el.read}</span>
+                                <label class="switch">
+                                <input type="checkbox" onclick = "toggleRead(this)" data-index = ${index} id = toggle${index}>
+                                <span class="slider round"></span>
+                                </label>
+                            </p>
+                         </div>
+                         `;
+
+    // if (el.read.localeCompare("Read") == 0) {
+    //   toggleSwitch.checked = true;
+    // } else {
+    //   toggleSwitch.checked = false;
+    // }
     // para1 = document.createElement("p");
     // para1.innerText = el.title;
     // card.appendChild(para1);
@@ -66,6 +96,8 @@ function displayBooks(books) {
 
     removeButton = document.createElement("button"); // adding a  button to remove a card
     removeButton.innerText = "Remove Book";
+    removeButton.setAttribute("type", "button");
+    removeButton.setAttribute("class", "btn btn-outline-success");
     removeButton.setAttribute("data-index", index); // so that we know which index in myLibrary[] the removeButton belongs to
     removeButton.setAttribute("onclick", "removeBook(this)");
     card.appendChild(removeButton);
@@ -73,5 +105,11 @@ function displayBooks(books) {
     card.className = "card";
     card.setAttribute("id", `${index}`);
     document.getElementById("card_container").appendChild(card);
+    toggleBtn = document.getElementById(`toggle${index}`);
+    if (el.read.localeCompare("Read") == 0) {
+      toggleBtn.checked = true;
+    } else {
+      toggleBtn.checked = false;
+    }
   });
 }

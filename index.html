@@ -4,12 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
     <link rel="stylesheet" href="./styles.css" />
     <script src="index.js"></script>
   </head>
   <body>
+    <header>
+      <h1>Library</h1>
+      <button data-open-modal type="button" class="btn btn-warning">
+        Add book
+      </button>
+    </header>
+    <hr class="white-line" />
     <div class="card_container" id="card_container"></div>
-    <button data-open-modal>Add book</button>
+
     <dialog data-modal>
       <form onsubmit="addBookToLibrary(event)">
         <input
@@ -18,19 +37,23 @@
           id="tile"
           name="title"
         />
+        <br />
         <input type="text" placeholder="Author" id="author" name="author" />
+        <br />
         <input
+          class="number-of-pages"
           type="number"
           placeholder="Number of Pages"
           id="pages"
           name="pages"
         />
+        <br />
         <select name="read" id="read">
           <option value="Read">Read</option>
           <option value="Not read">Not read</option>
         </select>
         <br />
-        <button type="submit">Add book</button>
+        <button type="submit">Add</button>
       </form>
       <button data-close-modal>Cancel</button>
     </dialog>
